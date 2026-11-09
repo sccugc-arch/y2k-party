@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Union Galvasteel - Y2K Bug Bash 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Press+Start+2P&family=Righteous&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        y2kPink: '#FF007F',
+                        y2kHotPink: '#FF1493',
+                        y2kLime: '#39FF14',
+                        y2kPurple: '#A020F0',
+                        y2kCyan: '#00F0FF',
+                        y2kYellow: '#FFE600',
+                        y2kSilver: '#E0E0E0',
+                        y2kMagenta: '#D800A6'
+                    },
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        pixel: ['"Press Start 2P"', 'cursive'],
+                        y2k: ['Righteous', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Y2K Dark Cyber Moss & Neon Mesh Background */
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #0a0518;
+            background-image: 
+                radial-gradient(circle at 50% 12%, rgba(255, 0, 127, 0.45), transparent 50%),
+                radial-gradient(circle at 85% 50%, rgba(0, 240, 255, 0.35), transparent 45%),
+                radial-gradient(circle at 15% 80%, rgba(57, 255, 20, 0.3), transparent 45%),
+                radial-gradient(rgba(255, 0, 127, 0.35) 1.5px, transparent 1.5px), 
+                radial-gradient(rgba(0, 240, 255, 0.35) 1.5px, transparent 1.5px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 24px 24px, 24px 24px;
+            background-position: 0 0, 0 0, 0 0, 0 0, 12px 12px;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+            touch-action: manipulation;
+            color: #ffffff;
+        }
+
+        /* Y2K Pattern Mesh */
+        .y2k-moss-mesh {
+            /* Handled in main body for full dark theme grid */
+        }
+
+        /* 3D Bubble Chrome Text Styles */
+        .y2k-bubble-title {
+            font-family: 'Righteous', cursive;
+            color: #FF007F;
+            text-shadow: 
+                -3px -3px 0 #FFF,  
+                 3px -3px 0 #FFF,
+                -3px  3px 0 #FFF,
+                 3px  3px 0 #FFF,
+                 5px  7px 0px #39FF14,
+                 8px 10px 0px #00F0FF,
+                12px 14px 25px rgba(255, 0, 127, 0.8);
+            filter: drop-shadow(0 10px 15px rgba(255, 0, 127, 0.8));
+        }
+
+        .y2k-chrome-text {
+            font-family: 'Righteous', cursive;
+            background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 50%, #F8FAFC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(3px 4px 0px #FF007F) drop-shadow(-2px -2px 0px #39FF14);
+        }
+
+        /* Windows 98 / McBling Dark Glass Window Container */
+        .y2k-win98-card {
+            background: rgba(18, 10, 42, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 0 35px rgba(255, 0, 127, 0.6),
+                inset 0 0 20px rgba(0, 240, 255, 0.25),
+                0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Y2K Pattern Mesh */
+        .y2k-moss-mesh {
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.3) 2px, transparent 2px), 
+                radial-gradient(rgba(255, 0, 127, 0.25) 2px, transparent 2px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* 3D Bubble Chrome Text Styles */
+        .y2k-bubble-title {
+            font-family: 'Righteous', cursive;
+            color: #FF007F;
+            text-shadow: 
+                -4px -4px 0 #FFF,  
+                 4px -4px 0 #FFF,
+                -4px  4px 0 #FFF,
+                 4px  4px 0 #FFF,
+                 6px  8px 0px #39FF14,
+                10px 12px 0px #00F0FF,
+                14px 16px 25px rgba(0, 0, 0, 0.6);
+            filter: drop-shadow(0 12px 10px rgba(255, 20, 147, 0.6));
+        }
+
+        .y2k-chrome-text {
+            font-family: 'Righteous', cursive;
+            background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 40%, #94A3B8 50%, #F8FAFC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(3px 4px 0px #FF007F) drop-shadow(-2px -2px 0px #39FF14);
+        }
+
+        /* Windows 98 / McBling Glass Window Container */
+        .y2k-win98-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 4px solid #FFFFFF;
+            box-shadow: 
+                0 0 30px rgba(255, 0, 127, 0.5),
+                inset 0 0 25px rgba(255, 255, 255, 0.9),
+                0 20px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .win98-header {
+            background: linear-gradient(90deg, #FF007F 0%, #A020F0 50%, #00F0FF 100%);
+            border-bottom: 2px solid #FFF;
+        }
+
+        /* Animations */
+        @keyframes float-y2k {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-16px) rotate(6deg) scale(1.08); }
+        }
+        @keyframes float-reverse-y2k {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(16px) rotate(-6deg) scale(0.92); }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes eq-bar {
+            0%, 100% { height: 4px; }
+            50% { height: 20px; }
+        }
+
+        .animate-float-slow { animation: float-y2k 5s ease-in-out infinite; }
+        .animate-float-reverse { animation: float-reverse-y2k 5.5s ease-in-out infinite; }
+        .animate-marquee { display: inline-block; animation: marquee 10s linear infinite; }
+        
+        .eq-bar-1 { animation: eq-bar 0.4s ease-in-out infinite; }
+        .eq-bar-2 { animation: eq-bar 0.7s ease-in-out infinite 0.1s; }
+        .eq-bar-3 { animation: eq-bar 0.5s ease-in-out infinite 0.2s; }
+        .eq-bar-4 { animation: eq-bar 0.6s ease-in-out infinite 0.15s; }
+
+        /* Y2K Buttons */
+        .y2k-btn {
+            background: linear-gradient(180deg, #FF69B4 0%, #FF007F 50%, #C71585 100%);
+            border: 3px solid #FFF;
+            box-shadow: 0 4px 0 #39FF14, 0 8px 18px rgba(0,0,0,0.3);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .y2k-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 0 #39FF14, 0 12px 22px rgba(0,0,0,0.4);
+        }
+        .y2k-btn:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 0 1px 0 #39FF14, 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .y2k-tab-active {
+            background: linear-gradient(180deg, #FF007F 0%, #A020F0 100%) !important;
+            color: #FFF !important;
+            border-color: #39FF14 !important;
+            box-shadow: 0 0 16px #39FF14 !important;
+        }
+
+        /* Dropped Sticker Styling */
+        .placed-sticker {
+            position: absolute;
+            pointer-events: auto;
+            user-select: none;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            cursor: pointer;
+            z-index: 40;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Sparkle Particle Effect */
+        .sparkle-particle {
+            position: fixed;
+            pointer-events: none;
+            background: radial-gradient(circle, #FFF 10%, #FF007F 60%, rgba(255,255,255,0) 100%);
+            border-radius: 50%;
+            z-index: 9999;
+            animation: sparkleFade 0.6s ease-out forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% { transform: scale(0.2) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.8) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen pb-28 y2k-moss-mesh selection:bg-y2kLime selection:text-black">
+
+    <!-- Interactive Canvas & Clickable Background Overlay -->
+    <div id="sticker-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
+    <!-- Floating Decorative Y2K Background Items -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <!-- Floating Butterfly Top Left -->
+        <div class="absolute top-2 left-2 text-6xl md:text-8xl animate-float-slow opacity-95 filter drop-shadow-[0_10px_10px_rgba(255,0,127,0.6)]">
+            🦋
+        </div>
+        <!-- Floating Headphones Top Right -->
+        <div class="absolute top-12 -right-3 text-6xl md:text-8xl animate-float-reverse opacity-95 filter drop-shadow-[0_10px_10px_rgba(0,240,255,0.6)]">
+            🎧
+        </div>
+        <!-- Floating Flip Phone Middle Left -->
+        <div class="absolute top-1/2 -left-4 text-5xl md:text-7xl animate-float-slow opacity-90 filter drop-shadow-[0_10px_10px_rgba(57,255,20,0.6)]">
+            📱
+        </div>
+        <!-- Floating Smiley Middle Right -->
+        <div class="absolute top-2/3 -right-2 text-5xl md:text-7xl animate-float-reverse opacity-90">
+            😃
+        </div>
+        <!-- Floating Stars -->
+        <div class="absolute top-1/4 left-8 text-4xl animate-bounce text-y2kYellow">✨</div>
+        <div class="absolute top-1/3 right-10 text-4xl animate-pulse text-y2kCyan">💖</div>
+        <div class="absolute bottom-1/4 left-6 text-4xl animate-bounce text-y2kLime">⭐</div>
+        <div class="absolute bottom-12 right-12 text-5xl animate-pulse text-y2kHotPink">🌸</div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="relative z-20 max-w-lg mx-auto px-4 pt-6 pb-12">
+
+        <!-- Top Header & Title -->
+        <header class="text-center mb-5">
+            <!-- Organization Tag -->
+            <div class="inline-flex items-center gap-2 bg-y2kYellow text-black font-pixel text-[10px] md:text-xs px-4 py-1.5 rounded-full border-2 border-black shadow-[4px_4px_0px_#FF007F] mb-3 transform -rotate-2">
+            <div class="mt-1 inline-flex items-center gap-2 bg-y2kLime text-black font-bold text-xs md:text-sm px-4 py-1.5 rounded-full border-2 border-white shadow-lg animate-bounce">
+                <span>🏢</span> UNION GALVASTEEL CORPORATION <span>⚡</span>
+            </div>
+     </div>
+
+            <!-- Main Bubble Chrome Title -->
+            <h1 class="text-4xl sm:text-5xl font-black tracking-wider uppercase leading-none mb-2 y2k-bubble-title">
+                Y2K PARTY<br>
+                            </h1>
+
+                <span>👾</span> PARTY LIKE IT'S 1999 <span>👾</span>
+
+
+            <!-- Millennium Bug Live Countdown Widget -->
+                    </header>
+
+        <!-- Y2K Winamp / Cyber MP3 Music Player -->
+        <div class="mb-5 bg-gradient-to-r from-y2kPurple via-y2kHotPink to-y2kCyan p-1 rounded-2xl shadow-2xl glow-pulse">
+            <div class="bg-black/95 rounded-xl p-3 text-white border border-y2kCyan">
+                <!-- Song Ticker & Equalizer -->
+                <div class="flex items-center justify-between mb-2 pb-2 border-b border-gray-800">
+                    <div class="flex items-center gap-2 overflow-hidden flex-1">
+                        <div class="w-8 h-8 bg-y2kPink rounded-lg flex items-center justify-center text-lg animate-spin" style="animation-duration: 4s;">
+                            💿
+                        </div>
+                        <div class="overflow-hidden w-full">
+                            <div class="text-[9px] text-y2kLime font-pixel uppercase">WINAMP v2.0 - CYBER DJ</div>
+                            <div class="text-xs font-bold text-y2kYellow whitespace-nowrap overflow-hidden">
+                                <span id="song-title" class="inline-block animate-marquee">▶ Britney Spears - Toxic (Y2K Remix 2000).mp3</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Equalizer Visualizer -->
+                    <div id="eq-container" class="flex items-end gap-1 h-5 px-2 opacity-50">
+                        <div class="w-1 bg-y2kCyan rounded-full eq-bar-1"></div>
+                        <div class="w-1 bg-y2kLime rounded-full eq-bar-2"></div>
+                        <div class="w-1 bg-y2kPink rounded-full eq-bar-3"></div>
+                        <div class="w-1 bg-y2kYellow rounded-full eq-bar-4"></div>
+                    </div>
+                </div>
+
+                <!-- Player Controls -->
+                <div class="flex items-center justify-between gap-2">
+                    <button onclick="prevSong()" class="text-xs text-gray-300 hover:text-white px-2 py-1 bg-gray-800 rounded">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button id="audio-toggle" onclick="toggleAudio()" class="y2k-btn flex-1 py-1.5 rounded-lg text-xs font-bold text-white flex items-center justify-center gap-1">
+                        <i id="audio-icon" class="fas fa-play"></i> <span id="audio-text">PLAY SOUNDTRACK</span>
+                    </button>
+                    <button onclick="nextSong()" class="text-xs text-gray-300 hover:text-white px-2 py-1 bg-gray-800 rounded">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+          </div>
+
+        <!-- TAB 1: PROGRAM FLOW -->
+        <section id="view-program" class="tab-view y2k-win98-card rounded-3xl overflow-hidden">
+            <!-- Win98 Window Header Bar -->
+            <div class="win98-header px-4 py-2 flex items-center justify-between text-white">
+                <div class="flex items-center gap-2 font-pixel text-[11px]">
+                    <span>📂</span> PROGRAM SCHEDULE
+                </div>
+                <div class="flex gap-1">
+                    <span class="w-3.5 h-3.5 bg-yellow-400 rounded-full inline-block border border-black"></span>
+                    <span class="w-3.5 h-3.5 bg-green-400 rounded-full inline-block border border-black"></span>
+                    <span class="w-3.5 h-3.5 bg-red-500 rounded-full inline-block border border-black"></span>
+                </div>
+            </div>
+
+            <div class="p-4 md:p-5">
+                <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-y2kHotPink">
+                    <h2 class="text-xl font-bold text-y2kPink flex items-center gap-2">
+                        <i class="fas fa-clock text-y2kCyan"></i> TIMELINE FLOW
+                    </h2>
+                    <span class="text-[10px] font-pixel bg-y2kLime text-black px-2 py-0.5 rounded">ONLINE</span>
+                </div>
+
+                <!-- Timeline Slots -->
+                <div class="space-y-3">
+                    <!-- 6:00 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kHotPink shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(1)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🙏</span>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-y2kPink text-white font-bold text-[9px] px-2 py-0.5 rounded-full">5:30 PM - 5:35 PM</span>
+                                        <span class="text-[9px] font-bold bg-green-100 text-green-700 px-1.5 py-0.5 rounded">UP NEXT</span>
+                                    </div>
+                                    <h3 class="font-bold text-gray-900 text-sm">Opening Prayer and Philippine National Anthem</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-1" class="fas fa-chevron-down text-y2kPink transition-transform"></i>
+                        </div>
+                        
+                        </div>
+                    </div>
+
+                    <!-- 6:45 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kPurple shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(2)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🎤</span>
+                                <div>
+                                    <span class="bg-y2kPurple text-white font-bold text-[9px] px-2 py-0.5 rounded-full">6:45 PM - 7:00 PM</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">Grand Opening & Welcome</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-2" class="fas fa-chevron-down text-y2kPurple transition-transform"></i>
+                        </div>
+                        <div id="details-2" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kPurple/10 p-2.5 rounded-xl">
+                            Y2K pop dance mix kick-off by our Emcee followed by opening remarks from Union Galvasteel leadership!
+                        </div>
+                    </div>
+
+                    <!-- 7:00 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kLime shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(3)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🍕</span>
+                                <div>
+                                    <span class="bg-green-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full">7:00 PM - 8:00 PM</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">Dinner Buffet & Millennium Hits</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-3" class="fas fa-chevron-down text-green-600 transition-transform"></i>
+                        </div>
+                        <div id="details-3" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kLime/20 p-2.5 rounded-xl">
+                            Buffet feast served accompanied by a live DJ set playing late 90s & early 2000s Pop/R&B hits.
+                        </div>
+                    </div>
+
+                    <!-- 8:00 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kYellow shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(4)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🕹️</span>
+                                <div>
+                                    <span class="bg-yellow-600 text-white font-bold text-[9px] px-2 py-0.5 rounded-full">8:00 PM - 8:45 PM</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">Party Games & Bedazzle Showdown</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-4" class="fas fa-chevron-down text-yellow-600 transition-transform"></i>
+                        </div>
+                        <div id="details-4" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kYellow/20 p-2.5 rounded-xl">
+                            Interactive team showdowns: <em>Name That Y2K Tune</em>, <em>Pop Culture Trivia</em>, and <em>Bedazzling Challenge</em>.
+                        </div>
+                    </div>
+
+                    <!-- 8:45 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kHotPink shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(5)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">👓</span>
+                                <div>
+                                    <span class="bg-y2kHotPink text-white font-bold text-[9px] px-2 py-0.5 rounded-full">8:45 PM - 9:15 PM</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">Y2K Fashion Runway & Awards</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-5" class="fas fa-chevron-down text-y2kHotPink transition-transform"></i>
+                        </div>
+                        <div id="details-5" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kPink/10 p-2.5 rounded-xl">
+                            Best Dressed Walk-Off! Walk the stage for <strong>Y2K Pop Royalty</strong>, <strong>Cyber Chic</strong>, and <strong>Best Nostalgic Outfit</strong>.
+                        </div>
+                    </div>
+
+                    <!-- 9:15 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kPurple shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(6)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🎁</span>
+                                <div>
+                                    <span class="bg-y2kPurple text-white font-bold text-[9px] px-2 py-0.5 rounded-full">9:15 PM - 9:45 PM</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">Raffle Draw & Gift Exchange</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-6" class="fas fa-chevron-down text-y2kPurple transition-transform"></i>
+                        </div>
+                        <div id="details-6" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kPurple/10 p-2.5 rounded-xl">
+                            Unwrapping gifts with Secret Santa (Monito Monita) reveal + grand raffle giveaways!
+                        </div>
+                    </div>
+
+                    <!-- 9:45 PM -->
+                    <div class="bg-white/90 rounded-2xl p-3 border-2 border-y2kCyan shadow-md">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="toggleItem(7)">
+                            <div class="flex items-center gap-2.5">
+                                <span class="text-2xl">🪩</span>
+                                <div>
+                                    <span class="bg-y2kCyan text-black font-bold text-[9px] px-2 py-0.5 rounded-full">9:45 PM - LATE</span>
+                                    <h3 class="font-bold text-gray-900 text-sm">After-Party & Open Dance Floor</h3>
+                                </div>
+                            </div>
+                            <i id="chevron-7" class="fas fa-chevron-down text-y2kCyan transition-transform"></i>
+                        </div>
+                        <div id="details-7" class="hidden mt-2.5 pt-2 border-t border-dashed border-gray-300 text-xs text-gray-800 bg-y2kCyan/10 p-2.5 rounded-xl">
+                            Open dance floor with rave glow sticks, classic 2000s club bangers, and photo booth fun!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: DRESS CODE showcase & VOTE -->
+        <section id="view-dresscode" class="tab-view hidden y2k-win98-card rounded-3xl p-5">
+            <h2 class="text-xl font-bold text-y2kPink mb-3 flex items-center gap-2">
+                <span>👗</span> Y2K OUTFIT INSPO & VOTING
+            </h2>
+            <p class="text-xs text-gray-700 mb-4">Pick your style category and vote for the best fit inspiration!</p>
+
+            <div class="space-y-3">
+                <!-- Card 1 -->
+                <div class="bg-white/90 p-3.5 rounded-2xl border-2 border-y2kHotPink shadow">
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="font-bold text-y2kPink text-sm">✨ Pop Royalty</h3>
+                        <button onclick="voteCategory('pop')" class="text-xs bg-y2kPink text-white px-2.5 py-1 rounded-full font-bold flex items-center gap-1 shadow">
+                            💖 Vote (<span id="votes-pop">24</span>)
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-700">Metallic silver pants, denim-on-denim, tracksuits, tube tops, rimless tinted sunglasses, butterfly clips.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white/90 p-3.5 rounded-2xl border-2 border-y2kCyan shadow">
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="font-bold text-y2kCyan text-sm">🕶️ Cyber / Matrix Chic</h3>
+                        <button onclick="voteCategory('cyber')" class="text-xs bg-y2kCyan text-black px-2.5 py-1 rounded-full font-bold flex items-center gap-1 shadow">
+                            ⚡ Vote (<span id="votes-cyber">19</span>)
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-700">Long leather trench coats, tiny futuristic shades, chrome accents, combat boots.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white/90 p-3.5 rounded-2xl border-2 border-y2kLime shadow">
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="font-bold text-green-600 text-sm">🛹 Skater & Streetwear</h3>
+                        <button onclick="voteCategory('skater')" class="text-xs bg-y2kLime text-black px-2.5 py-1 rounded-full font-bold flex items-center gap-1 shadow">
+                            🔥 Vote (<span id="votes-skater">31</span>)
+                        </button>
+                    </div>
+                    <p class="text-xs text-gray-700">Baggy cargo pants, graphic tees, bucket hats, chunky sneakers, frosted tips.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: Y2K MINI QUIZ GAME -->
+        <section id="view-games" class="tab-view hidden y2k-win98-card rounded-3xl p-5 text-center">
+            <div class="inline-block bg-y2kYellow text-black font-pixel text-[10px] px-3 py-1 rounded-full mb-2">
+                MINI-GAME WIDGET
+            </div>
+            <h2 class="text-xl font-bold text-y2kPink mb-2">🎵 NAME THAT Y2K SONG</h2>
+            <p class="text-xs text-gray-700 mb-4">Listen to the clue and select the correct classic Y2K hit!</p>
+
+            <div id="quiz-box" class="bg-white/90 p-4 rounded-2xl border-2 border-y2kPurple text-left">
+                <div class="text-xs font-bold text-y2kPurple mb-1" id="quiz-question-num">QUESTION 1 of 3</div>
+                <div class="text-sm font-bold text-gray-900 mb-3" id="quiz-clue">"Baby, can't you see I'm calling? A guy like you should wear a warning..."</div>
+                
+                <div class="space-y-2" id="quiz-options">
+                    <button onclick="answerQuiz(true)" class="w-full text-left p-2.5 rounded-xl border border-gray-300 text-xs font-bold hover:bg-y2kPink/20 transition">A) Britney Spears - Toxic</button>
+                    <button onclick="answerQuiz(false)" class="w-full text-left p-2.5 rounded-xl border border-gray-300 text-xs font-bold hover:bg-y2kPink/20 transition">B) Christina Aguilera - Genie in a Bottle</button>
+                    <button onclick="answerQuiz(false)" class="w-full text-left p-2.5 rounded-xl border border-gray-300 text-xs font-bold hover:bg-y2kPink/20 transition">C) Spice Girls - Wannabe</button>
+                </div>
+            </div>
+
+            <div id="quiz-score" class="mt-3 text-xs font-pixel text-y2kLime bg-black/80 p-2 rounded-xl">
+                SCORE: <span id="score-val">0</span> POINTS
+            </div>
+        </section>
+
+        <!-- TAB 4: STICKER STAMPER SELECTOR -->
+        <section id="view-stickers" class="tab-view hidden y2k-win98-card rounded-3xl p-5">
+            <h2 class="text-xl font-bold text-y2kPink mb-2 flex items-center gap-2">
+                <span>🎨</span> STICKER STAMPER
+            </h2>
+            <p class="text-xs text-gray-700 mb-3">Select a sticker below, then tap anywhere on the screen to stamp it!</p>
+
+            <div class="grid grid-cols-4 gap-2 mb-4">
+                <button onclick="setSticker('🦋')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kPink text-2xl text-center hover:scale-110 transition">🦋</button>
+                <button onclick="setSticker('🎧')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kCyan text-2xl text-center hover:scale-110 transition">🎧</button>
+                <button onclick="setSticker('📱')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kLime text-2xl text-center hover:scale-110 transition">📱</button>
+                <button onclick="setSticker('💿')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kYellow text-2xl text-center hover:scale-110 transition">💿</button>
+                <button onclick="setSticker('😃')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kHotPink text-2xl text-center hover:scale-110 transition">😃</button>
+                <button onclick="setSticker('💖')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kPurple text-2xl text-center hover:scale-110 transition">💖</button>
+                <button onclick="setSticker('✨')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kCyan text-2xl text-center hover:scale-110 transition">✨</button>
+                <button onclick="setSticker('👾')" class="sticker-select-btn p-3 bg-white/80 rounded-xl border-2 border-y2kLime text-2xl text-center hover:scale-110 transition">👾</button>
+            </div>
+
+            <button onclick="clearStickers()" class="w-full py-2 bg-red-500 text-white rounded-xl text-xs font-bold shadow">
+                🗑️ Clear All Placed Stickers
+            </button>
+        </section>
+
+        <!-- Action Control Buttons -->
+        <div class="mt-5 flex flex-col sm:flex-row gap-2.5">
+            <button onclick="triggerGlitter(event)" class="y2k-btn flex-1 py-3 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2">
+                <span>✨</span> SPARKLE BLAST
+            </button>
+            <button onclick="copyProgramText()" class="y2k-btn flex-1 py-3 rounded-xl text-xs font-bold text-white flex items-center justify-center gap-2" style="background: linear-gradient(180deg, #00F0FF 0%, #008B8B 100%);">
+                <span>📋</span> COPY PROGRAM
+            </button>
+        </div>
+
+        <footer class="mt-6 text-center text-xs font-bold text-white filter drop-shadow">
+            💾 UNION GALVASTEEL CORP • Y2K CHRISTMAS PARTY 💾
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Controller -->
+    <script>
+        // Active Selected Sticker
+        let activeSticker = '🦋';
+
+        function setSticker(emoji) {
+            playBeep(900, 0.05);
+            activeSticker = emoji;
+            alert(`Selected sticker: ${emoji}! Now tap anywhere on screen to place it.`);
+        }
+
+        // Tap/Click Anywhere on Screen to Place Sticker & Sparkles
+        document.addEventListener('click', function(e) {
+            // Ignore clicks on buttons/inputs/links
+            if (e.target.closest('button') || e.target.closest('a') || e.target.closest('.tab-view')) return;
+
+            spawnSticker(e.clientX, e.clientY);
+            spawnSparkles(e.clientX, e.clientY);
+        });
+
+        function spawnSticker(x, y) {
+            playBeep(1100, 0.04);
+            const sticker = document.createElement('div');
+            sticker.className = 'placed-sticker text-3xl filter drop-shadow-lg';
+            sticker.innerText = activeSticker;
+            sticker.style.left = `${x - 15}px`;
+            sticker.style.top = `${y - 15}px`;
+            
+            sticker.onclick = function(e) {
+                e.stopPropagation();
+                playBeep(400, 0.05);
+                sticker.remove();
+            };
+
+            document.getElementById('sticker-container').appendChild(sticker);
+        }
+
+        function clearStickers() {
+            playBeep(500, 0.1);
+            document.getElementById('sticker-container').innerHTML = '';
+        }
+
+        function spawnSparkles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'sparkle-particle';
+                const size = Math.random() * 16 + 8;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${x + (Math.random() * 60 - 30)}px`;
+                particle.style.top = `${y + (Math.random() * 60 - 30)}px`;
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 600);
+            }
+        }
+
+        function triggerGlitter(e) {
+            playBeep(1200, 0.1);
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            for (let i = 0; i < 20; i++) {
+                spawnSparkles(cx + (Math.random() * 200 - 100), cy + (Math.random() * 200 - 100));
+            }
+        }
+
+        // Tab Switcher
+        function switchTab(tabName) {
+            playBeep(850, 0.05);
+            document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+            document.querySelectorAll('.y2k-tab-btn').forEach(btn => btn.classList.remove('y2k-tab-active'));
+
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.add('y2k-tab-active');
+        }
+
+        // Timeline Expand/Collapse
+        function toggleItem(id) {
+            playBeep(750, 0.05);
+            const details = document.getElementById(`details-${id}`);
+            const chevron = document.getElementById(`chevron-${id}`);
+
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                details.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Outfit Voting Logic
+        const votes = { pop: 24, cyber: 19, skater: 31 };
+        function voteCategory(cat) {
+            playBeep(1000, 0.08);
+            votes[cat]++;
+            document.getElementById(`votes-${cat}`).innerText = votes[cat];
+            spawnSparkles(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // Mini Quiz Logic
+        let score = 0;
+        function answerQuiz(isCorrect) {
+            if (isCorrect) {
+                playBeep(1200, 0.15);
+                score += 10;
+                document.getElementById('score-val').innerText = score;
+                alert('🎉 CORRECT! Britney Spears - Toxic (2003 hit)');
+            } else {
+                playBeep(300, 0.15);
+                alert('❌ Oops! Try again!');
+            }
+        }
+
+        // Countdown Timer: Dec 18, 2026
+        const targetDate = new Date("December 18, 2026 18:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = 
+                    `<span>${days}d</span> : <span>${hours}h</span> : <span>${mins}m</span> : <span>${secs}s</span>`;
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Web Audio Synthesizer Soundtrack Player
+        let audioCtx = null;
+        let isPlaying = false;
+        let synthInterval = null;
+        let currentSongIdx = 0;
+
+        const playlist = [
+            "▶ Britney Spears - Toxic (2003 Remix).mp3",
+            "▶ N'SYNC - Bye Bye Bye (Millennium Mix).mp3",
+            "▶ Destiny's Child - Say My Name.mp3",
+            "▶ Avril Lavigne - Sk8er Boi.mp3"
+        ];
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playBeep(freq = 600, duration = 0.08) {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function toggleAudio() {
+            initAudio();
+            const btnText = document.getElementById('audio-text');
+            const btnIcon = document.getElementById('audio-icon');
+            const eq = document.getElementById('eq-container');
+
+            if (!isPlaying) {
+                isPlaying = true;
+                btnText.innerText = "PAUSE SOUNDTRACK";
+                btnIcon.className = "fas fa-pause";
+                eq.classList.remove('opacity-50');
+
+                const melody = [523.25, 659.25, 783.99, 1046.50, 880.00, 659.25, 587.33, 659.25];
+                let idx = 0;
+                synthInterval = setInterval(() => {
+                    playBeep(melody[idx], 0.16);
+                    idx = (idx + 1) % melody.length;
+                }, 220);
+            } else {
+                isPlaying = false;
+                btnText.innerText = "PLAY SOUNDTRACK";
+                btnIcon.className = "fas fa-play";
+                eq.classList.add('opacity-50');
+                clearInterval(synthInterval);
+            }
+        }
+
+        function nextSong() {
+            currentSongIdx = (currentSongIdx + 1) % playlist.length;
+            document.getElementById('song-title').innerText = playlist[currentSongIdx];
+            playBeep(950, 0.06);
+        }
+
+        function prevSong() {
+            currentSongIdx = (currentSongIdx - 1 + playlist.length) % playlist.length;
+            document.getElementById('song-title').innerText = playlist[currentSongIdx];
+            playBeep(750, 0.06);
+        }
+
+        function copyProgramText() {
+            playBeep(1000, 0.08);
+            const text = `🏢 UNION GALVASTEEL Y2K PARTY 2026 🏢\n6:00 PM - Red Carpet & Polaroid\n6:45 PM - Grand Opening\n7:00 PM - Dinner & DJ Hits\n8:00 PM - Y2K Party Games\n8:45 PM - Fashion Runway\n9:15 PM - Secret Santa & Raffle\n9:45 PM - After-Party Dance Floor`;
+            
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                alert('✨ Y2K Program Flow copied to clipboard! ✨');
+            } catch(e) {}
+            document.body.removeChild(ta);
+        }
+    </script>
+</body>
+</html>
